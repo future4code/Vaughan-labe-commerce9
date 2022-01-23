@@ -15,19 +15,19 @@ class Filtros extends React.Component {
         
     };
     
-    atualizacaoDaBusca=(event) => {
+    onChangeAtualizacaoDaBusca=(event) => {
         this.setState ({
            busca: event.target.value })
     }
-    atualizacaoDoMinimo=(event) => {
+    onChangeAtualizacaoDoMinimo=(event) => {
         this.setState ({
            valorMinimo: event.target.value })
     }
-    atualizacaoDoMaximo=(event) => {
+    onChangeAtualizacaoDoMaximo=(event) => {
         this.setState ({
            valorMaximo: event.target.value })
     }
-
+    
     filtrar = () => {
        
         this.props.produtos = this.props.produtos.filter(produtos => {
@@ -53,8 +53,8 @@ class Filtros extends React.Component {
     <h3>Busca por nome</h3>
     <input
     placeholder="Produto"
-    value={this.state.busca}
-    onChange={this.atualizacaoDaBusca}
+    value={this.props.busca}
+    onChange={this.props.onChangeAtualizacaoDaBusca}
      />
      
      
@@ -62,19 +62,18 @@ class Filtros extends React.Component {
     <input
     type="number"
     placeholder="$"
-    value={this.state.valorMinimo}
-    onChange={this.atualizacaoDoMinimo}
+    value={this.props.valorMinimo}
+    onChange={this.props.onChangeAtualizacaoDoMinimo}
      />
            
     <h3>Valor máximo</h3>
     <input
     type="number"
     placeholder="$$$$"
-    value={this.state.valorMaximo}
-    onChange={this.atualizacaoDoMaximo}
+    value={this.props.valorMaximo}
+    onChange={this.props.onChangeAtualizacaoDoMaximo}
      />
-    <button onClick={this.filtrar} type='submit'> Filtrar </button>                          
-              
+     
     </Container>
 
     )

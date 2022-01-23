@@ -111,7 +111,24 @@ export class Main extends React.Component {
                 imagem: "https://th.bing.com/th/id/R.384852081ba39c84119b9fc95f311c0d?rik=CC5Wn6gOKZ3QIw&pid=ImgRaw&r=0"
             }
         ],
-        produtosNoCarrinho: []
+        produtosNoCarrinho: [],
+        busca: "",
+        valorMinimo: "",
+        valorMaximo: "",
+        sort: 'DECRESCENTE'
+    };
+    
+    onChangeAtualizacaoDaBusca=(event) => {
+        this.setState ({
+           busca: event.target.value })
+    }
+    onChangeAtualizacaoDoMinimo=(event) => {
+        this.setState ({
+           valorMinimo: event.target.value })
+    }
+    onChangeAtualizacaoDoMaximo=(event) => {
+        this.setState ({
+           valorMaximo: event.target.value })
     }
 
     adicionaNoCarrinho = (event) => {
@@ -130,13 +147,24 @@ export class Main extends React.Component {
             
         }
     }
-
+    onChangeSort = (event) => {
+        this.setState({sort: event.target.value})
+    }
+    ordenaLista = () => {
+        return this.props.produtos
+        .sort((a,b) => this.state.sort === 'CRESCENTE' ? a.valor - b.valor : b.valor - a.valor)
+    }
     render() {
         const produtos = this.props.produtos
         return <Container>
 
             <Filtros
-                produtos={this.state.produtos}
+                busca={this.state.busca}
+                valorMinimo={this.state.valorMinimo}
+                valorMaximo={this.state.valorMaximo}
+                onChangeAtualizacaoDaBusca={this.onChangeAtualizacaoDaBusca}
+                onChangeAtualizacaoDoMinimo={this.onChangeAtualizacaoDoMinimo}
+                onChangeAtualizacaoDoMaximo={this.onChangeAtualizacaoDoMaximo}
             />
             <Meio>
 
@@ -144,9 +172,9 @@ export class Main extends React.Component {
                     <Quantidade>Quantidade de Itens:</Quantidade>
                     <Ordem>
                         <h4>Ordem: </h4>
-                        <Select>
-                            <option>Crescente</option>
-                            <option>Decrescente</option>
+                        <Select value={this.state.sort} onChange={this.onChangeSort}>
+                            <option value={'CRESCENTE'}>Crescente</option>
+                            <option value={'DECRESCENTE'}>Decrescente</option>
                         </Select>
                     </Ordem>
                 </Header>
