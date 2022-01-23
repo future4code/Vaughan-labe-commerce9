@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Carrinho from "../Carrinho/Carrinho"
 import App from "../../App"
+import Filtros from "../Filtros/Filtros"
 
 
 const Container = styled.div`
@@ -134,14 +135,9 @@ export class Main extends React.Component {
         const produtos = this.props.produtos
         return <Container>
 
-            <Filtro>
-                <p>Valor minimo</p>
-                <input></input>
-                <p>Valor Maximo</p>
-                <input></input>
-                <p>Buscar por nome</p>
-                <input></input>
-            </Filtro>
+            <Filtros
+                produtos={this.state.produtos}
+            />
             <Meio>
 
                 <Header>

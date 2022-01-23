@@ -8,44 +8,42 @@ const Container = styled.div`
 `
 class Filtros extends React.Component {
     state = {
-        
-        produtos: [
-            {
-                id: 1,
-                nome: "Apollo 11",
-                titulo: "Nave aeroespacial",
-                valor: 100.0,
-                quantidade: 0
-            },
-            {
-                id: 2,
-                nome: "Foguete",
-                titulo: "Foguete da Nasa",
-                valor: 500.0,
-                quantidade: 0
-            }],
-
+    
         busca: "",
         valorMinimo: "",
-        alorMaximo: ""
+        valorMaximo: ""
         
     };
     
     atualizacaoDaBusca=(event) => {
         this.setState ({
            busca: event.target.value })
-     }
-     atualizacaoDoMinimo=(event) => {
+    }
+    atualizacaoDoMinimo=(event) => {
         this.setState ({
            valorMinimo: event.target.value })
-     }
-     atualizacaoDoMaximo=(event) => {
+    }
+    atualizacaoDoMaximo=(event) => {
         this.setState ({
            valorMaximo: event.target.value })
-     }
+    }
 
-
+    filtrar = () => {
+       
+        this.props.produtos = this.props.produtos.filter(produtos => {
+        return produtos.nome.toLowerCase().includes(this.state.busca.toLowerCase())
+        })
+        .filter(produtos => {
+        return this.state.valorMinimo === "" || produtos.valor >= this.state.valorMinimo
+        })
+        .filter(produtos => {
+        return this.state.valorMaximo === "" || produtos.valor <= this.state.valorMaximo
+        })
+        console.log(this.props.produtos.length)
+    }
+        
     render() {
+
     return (
     <Container>
 
@@ -58,6 +56,7 @@ class Filtros extends React.Component {
     value={this.state.busca}
     onChange={this.atualizacaoDaBusca}
      />
+     
      
     <h3>Valor mínimo</h3>
     <input
@@ -74,7 +73,7 @@ class Filtros extends React.Component {
     value={this.state.valorMaximo}
     onChange={this.atualizacaoDoMaximo}
      />
-                                
+    <button onClick={this.filtrar} type='submit'> Filtrar </button>                          
               
     </Container>
 
@@ -82,21 +81,3 @@ class Filtros extends React.Component {
     };
 }
 export default Filtros;
-
-// Qaundo coloco a função o site quebra, não estou conseguindo achar o erro.
-
-/*
-    {this.state.produtos.titulo
-    .filter(produtos => {
-    return produtos.titulo.toLowerCase().includes(this.state.busca.toLowerCase())
-    })
-    .filter(produtos => {
-    return this.state.valorMinimo === "" || produtos.valor >= this.state.valorMinimo
-    })
-    .filter(produtos => {
-    return this.state.valorMaximo === "" || produtos.valor <= this.state.valorMaximo
-    })
-    .map(produtos => {
-    return < key={produtos.id} produtos={produtos} />
-    })
-*/ 
