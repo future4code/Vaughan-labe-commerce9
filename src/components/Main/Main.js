@@ -9,10 +9,35 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 20vw 60vw 20vw;
     grid-template-rows: 100vh;
+    background-color: blac;
+    background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(0,0,1));
 `
 
 const Filtro = styled.div`
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
     grid-column: 1/2; 
+    
+
+    input {
+        width: 190%;
+        height: 3%;
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid #d1d1d1;
+        margin-bottom: 10px;
+        margin-left: -85px;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+    h3 {
+        margin-left: -85px;
+    }
+    
 `
 
 const Meio = styled.div`
@@ -20,7 +45,13 @@ const Meio = styled.div`
     grid-template-rows: 7% 93%;
     grid-template-columns: 100%;
     grid-column: 2/3;
-    background-color: white;
+
+    select {
+        border-radius: 5px;
+        outline: none;
+        margin-left: 5px;
+    }
+    
 `
 
 
@@ -28,6 +59,10 @@ const Header = styled.header`
     display: grid;
     grid-template-columns: 30% 40% 30%;
     grid-row: 1/2;
+
+    h4 {
+        color: white;
+    }
 `
 
 const Quantidade = styled.h3`
@@ -59,8 +94,25 @@ const Card = styled.div`
     grid-row: 2/3;
     width: 250px;
     height: 350px;
-    border:  1px solid black;
+    border:  1px solid gray;
     border-radius: 10px;
+    background-color: white;
+
+    button {
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid #d1d1d1;
+        background-color: white;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        font-size: 15px;
+    }
+    button:hover {
+        background-color: black;
+        transition: all 0.5s ease;
+        color: white;
+    }
+    
 `
 
 const CardImagem = styled.img`
@@ -80,9 +132,10 @@ const BotaoCard = styled.button`
     justify-content: center;
     align-items: center;
     width: 70%;
-    height: 6%;
+    height: 8%;
     outline: none;
 `
+
 
 
 
@@ -94,21 +147,21 @@ export class Main extends React.Component {
         produtos: [
             {
                 id: 1,
-                nome: "Apollo 11",
+                nome: "LEGO: Estrela da morte",
                 valor: 100.0,
-                imagem: "https://static3.tcdn.com.br/img/img_prod/460977/brinquedo_replica_onibus_espacial_shuttle_nasa_espaco_astronauta_discovery_ov_102_columbia_luz_e_som_85625_1_8592469c22e375292fb875951900529f.jpeg"
+                imagem: "https://http2.mlstatic.com/D_NQ_NP_778709-MLB31740824654_082019-O.jpg"
             },
             {
                 id: 2,
-                nome: "Foguete",
-                valor: 500.0,
-                imagem: "https://static3.tcdn.com.br/img/img_prod/460977/brinquedo_replica_onibus_espacial_shuttle_nasa_espaco_astronauta_discovery_ov_102_columbia_luz_e_som_85625_1_8592469c22e375292fb875951900529f.jpeg"
+                nome: "Baby Yoda",
+                valor: 10000000000,
+                imagem: "https://s2.glbimg.com/QqEDyJyWVPTI9tU-5izKpJls6UE=/620x520/smart/e.glbimg.com/og/ed/f/original/2020/11/30/baby-yoda.jpg"
             },
             {
                 id: 3,
-                nome: "Nave Espacial",
-                valor: 50.0,
-                imagem: "https://th.bing.com/th/id/R.384852081ba39c84119b9fc95f311c0d?rik=CC5Wn6gOKZ3QIw&pid=ImgRaw&r=0"
+                nome: "Millennium Falcon",
+                valor: 10,
+                imagem: "https://s2.glbimg.com/coHwdDkMeRVO9T2A_v1EIWLuHTE=/e.glbimg.com/og/ed/f/original/2019/08/27/31618033034_1dcde167ed_k.jpg"
             }
         ],
         produtosNoCarrinho: [],
@@ -157,19 +210,20 @@ export class Main extends React.Component {
     render() {
         const produtos = this.props.produtos
         return <Container>
-
-            <Filtros
-                busca={this.state.busca}
-                valorMinimo={this.state.valorMinimo}
-                valorMaximo={this.state.valorMaximo}
-                onChangeAtualizacaoDaBusca={this.onChangeAtualizacaoDaBusca}
-                onChangeAtualizacaoDoMinimo={this.onChangeAtualizacaoDoMinimo}
-                onChangeAtualizacaoDoMaximo={this.onChangeAtualizacaoDoMaximo}
-            />
+            <Filtro>
+                <Filtros
+                    busca={this.state.busca}
+                    valorMinimo={this.state.valorMinimo}
+                    valorMaximo={this.state.valorMaximo}
+                    onChangeAtualizacaoDaBusca={this.onChangeAtualizacaoDaBusca}
+                    onChangeAtualizacaoDoMinimo={this.onChangeAtualizacaoDoMinimo}
+                    onChangeAtualizacaoDoMaximo={this.onChangeAtualizacaoDoMaximo}
+                />
+            </Filtro>
+            
             <Meio>
-
                 <Header>
-                    <Quantidade>Quantidade de Itens:</Quantidade>
+                    <Quantidade>Quantidade de Itens: 3</Quantidade>
                     <Ordem>
                         <h4>Ordem: </h4>
                         <Select value={this.state.sort} onChange={this.onChangeSort}>
@@ -183,15 +237,12 @@ export class Main extends React.Component {
                     {this.state.produtos.map((produto) => {
                         return (<Card>
                             <CardImagem src={produto.imagem}></CardImagem>
-                            <h1>{produto.nome}</h1>
-                            <h4>Preco: R$ {produto.valor}</h4>
+                            <h3>{produto.nome}</h3>
+                            <h4>Preço: R${produto.valor}</h4>
                             <BotaoCard data-produto-id={produto.id} onClick={this.adicionaNoCarrinho}>Adicionar ao Carrinho</BotaoCard>
                         </Card>)
                     })}
-
-
                 </Compras>
-
             </Meio>
 
 

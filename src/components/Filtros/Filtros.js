@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import Main from '../Main/Main';
 
 
-const Container = styled.div`
-  border: 1px solid gray;
-  width: 300px;
-`
+
 class Filtros extends React.Component {
     state = {
     
@@ -45,36 +43,31 @@ class Filtros extends React.Component {
     render() {
 
     return (
-    <Container>
-
-    <h1>Filtros</h1>
-
-                
-    <h3>Busca por nome</h3>
-    <input
-    placeholder="Produto"
-    value={this.props.busca}
-    onChange={this.props.onChangeAtualizacaoDaBusca}
-     />
+    <div>     
+        <h3>Busca por nome</h3>
+        <input
+            placeholder="  Produto"
+            value={this.props.busca}
+            onChange={this.props.onChangeAtualizacaoDaBusca}
+        />
      
-     
-    <h3>Valor mínimo</h3>
-    <input
-    type="number"
-    placeholder="$"
-    value={this.props.valorMinimo}
-    onChange={this.props.onChangeAtualizacaoDoMinimo}
-     />
+        <h3>Valor mínimo</h3>
+        <input
+            type="number"
+            placeholder="  $"
+            value={this.props.valorMinimo}
+            onChange={this.props.onChangeAtualizacaoDoMinimo}
+        />
            
-    <h3>Valor máximo</h3>
-    <input
-    type="number"
-    placeholder="$$$$"
-    value={this.props.valorMaximo}
-    onChange={this.props.onChangeAtualizacaoDoMaximo}
-     />
+        <h3>Valor máximo</h3>
+        <input
+            type="number"
+            placeholder="  $$$$"
+            value={this.props.valorMaximo}
+            onChange={this.props.onChangeAtualizacaoDoMaximo}
+        />
      
-    </Container>
+    </div>
 
     )
     };
